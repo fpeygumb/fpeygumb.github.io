@@ -1,60 +1,10 @@
-*,
-*:before,
-*:after {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
+<style type="text/css">
 
 /* app */
-
-html { font-size: 100%; }
 
 body {
   background: lightblue;
   font-family: 'Open Sans', sans-serif;
-}
-
-/* Grid structure */
-
-.container {
-  width: 600px;
-  margin: 0 auto;
-  background: gray;
-  padding: 20px 0;
-  -webkit-box-shadow: 0 0 2px rgba(0,0,0,0.2);
-  box-shadow: 0 0 2px rgba(0,0,0,0.2);
-}
-
-.row {
-  display: block;
-  padding: 10px;
-  text-align: center;
-  width: 100%;
-  clear: both;
-  overflow: hidden;
-}
-
-.content { background: white; }
-
-/* logo */
-
-h1 {
-  font-family: 'Rokkitt', sans-serif;
-  color: #666;
-  text-align: center;
-  font-weight: 400;
-  margin: 0;
-}
-
-.tagline {
-  margin-top: -10px;
-  text-align: center;
-  padding: 5px 20px;
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  color: #777;
 }
 
 /* inputs */
@@ -63,15 +13,9 @@ h1 {
   height: 50px;
   border-top: 1px;
   position: relative;
-  overflow: hidden;
+ 
 }
 
-.inputContainer.last {
-  border-bottom: 1px ;
-  margin-bottom: 10px;
-}
-
-.inputContainer.half.last.right { border-left: 1px; }
 
 input[type="date"],
 input[type="text"],
@@ -95,44 +39,6 @@ select {
   transition: background 0.3s;
 }
 
-input[type="date"] { cursor: pointer; }
-
-input[type="date"]:focus,
-input[type="text"]:focus,
-select:focus {
-  outline: none;
-  background: clear;
-}
-
-::-webkit-input-placeholder {
- color: grey;
- font-weight: bold;
- -webkit-transition: all 0.3s;
- transition: all 0.3s;
-}
-::-moz-placeholder {
- color: lightblue;
- font-weight: normal;
- transition: all 0.3s;
-}
-::-ms-input-placeholder {
- color: lightblue;
- font-weight: normal;
- transition: all 0.3s;
-}
-input:-moz-placeholder {
- color: lightblue;
- font-weight: normal;
- transition: all 0.3s;
-}
- input:focus::-webkit-input-placeholder {
- color: lightblue;
- font-weight: bold;
-}
- input:focus::-moz-input-placeholder {
- color: lightblue;
- font-weight: bold;
-}
 
 label {
   padding: 5px 20px;
@@ -145,25 +51,19 @@ label {
 }
 
 button {
-  font-family: 'Open Sans', sans-serif;
-  background: transparent;
-  border-radius: 40px;
-  border: none;
-  outline: none;
-  height: 80px;
+  height: 50px;
   width: 100px;
   font-size: 1em;
   color: lightblue;
   cursor: pointer;
   text-transform: uppercase;
   position: relative;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
+
 }
 
 .icon {
   position: absolute;
-  top: 30%;
+  top: 10%;
   left: 10px;
   font-size: 20px;
 }
@@ -173,14 +73,11 @@ button {
   padding-left: 15px;
 }
 
-.taskAdd:hover { background: #303030; }
 
 .taskDelete {
   background: darkblue;
   padding-left: 30px;
 }
-
-.taskDelete:hover { background: #c0392b; }
 
 /* task styles */
 
@@ -189,36 +86,14 @@ button {
   padding: 0 20px;
 }
 
-.taskItem {
-  border-top: 1px solid #e5e5e5;
-  padding: 15px 0;
-  color: #777;
-  font-weight: 600;
-  font-size: 14px;
-  letter-spacing: 0.5px;
-}
-
-.taskList .taskItem:nth-child(even) { background: #fcfcfc; }
 
 .taskCheckbox { margin-right: 1em; }
 
 .complete-true {
   text-decoration: line-through;
-  color: #bebebe;
+  color: black;
 }
 
-.taskList .taskDate {
-  color: #95a5a6;
-  font-size: 10px;
-  font-weight: bold;
-  text-transform: uppercase;
-  display: block;
-  margin-left: 41px;
-}
-
-.fa-calendar {
-  margin-right: 10px;
-  font-size: 16px;
 }
  [class*='category-'] {
  display: inline-block;
@@ -242,19 +117,10 @@ button {
 
 .category-Work { background: red; }
 
-.category-School { background: lightblue; }
+.category-School { background: yellow; }
 
 .category-Other { background: green; }
 
-footer {
-  text-align: center;
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  color: #777;
-}
-
-footer a { color: #f39c12; }
 
 /* custom checkboxes */
 
@@ -270,7 +136,6 @@ footer a { color: #f39c12; }
   vertical-align: middle;
 }
 
-.taskCheckbox:focus { outline: none; }
 
 .taskCheckbox:before,
 .taskCheckbox:checked:before {
@@ -310,7 +175,6 @@ footer a { color: #f39c12; }
 
 .taskCategory option {
   background: #fff;
-  border: none;
-  outline: none;
   padding: 0 100px;
 }
+</style>
