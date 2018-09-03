@@ -74,7 +74,10 @@ button {
   padding-left: 15px;
 }
 
-
+.taskEdit {
+  background: red;
+  padding-left: 30px;
+}
 .taskDelete {
   background: darkblue;
   padding-left: 30px;
@@ -160,7 +163,7 @@ button {
   -webkit-appearance: none;
   appearance: none;
   cursor: pointer;
-  padding-left: 18px; /* specific positioning due to difficult behavior of select element*/
+  padding-left: 18px; 
   background: #fff;
 }
 
@@ -211,6 +214,8 @@ button {
                 <div class="row">
                   <button class="taskAdd" ng-click="addNew()">
                   <i class="fa fa-plus icon"></i>Add task</button>
+                  <button class="taskEdit" ng-click="editTask()">
+                  <i class="fa fa-minus icon"></i>Edit task</button>
                   <button class="taskDelete" ng-click="deleteTask()">
                   <i class="fa fa-trash-o icon"></i>Delete Task</button>
                 </div>
@@ -254,7 +259,7 @@ button {
                 if ($scope.newTaskDate == null || $scope.newTaskDate == '') {
                     $scope.taskItem.push({
                         description: $scope.newTask,
-                        date: "No deadline",
+                        date: "Deadline Not Set",
                         complete: false,
                         category: $scope.newTaskCategory.name
                     }) 
@@ -271,6 +276,24 @@ button {
                 $scope.newTaskCategory = $scope.categories;
                 localStorage.setItem('taskItems', JSON.stringify($scope.taskItem));
             };
+          
+          $scope.editTask = function () {
+                var completedTask = $scope.taskItem;
+                $scope.taskItem = [];
+                angular.forEach(completedTask, function (taskItem) {
+                    if (!taskItem.complete) {
+                
+                $scope.newTask = '';
+                $scope.newTaskDate = '';
+                $scope.newTaskCategory = $scope.categories;
+                $scope.taskItem.push(taskItem);
+                    }
+                });
+                
+                 localStorage.setItem('taskItems', JSON.stringify($scope.taskItem));
+            };
+          
+          
             $scope.deleteTask = function () {
                 var completedTask = $scope.taskItem;
                 $scope.taskItem = [];
