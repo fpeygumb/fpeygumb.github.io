@@ -215,7 +215,7 @@ button {
                   <button class="taskAdd" ng-click="addNew()">
                   <i class="fa fa-plus icon"></i>Add task</button>
                   <button class="taskEdit" ng-click="editTask()">
-                  <i class="fa fa-minus icon"></i>Edit task</button>
+                  <i class="fa fa-edit icon"></i>Edit task</button>
                   <button class="taskDelete" ng-click="deleteTask()">
                   <i class="fa fa-trash-o icon"></i>Delete Task</button>
                 </div>
@@ -277,21 +277,24 @@ button {
                 localStorage.setItem('taskItems', JSON.stringify($scope.taskItem));
             };
           
-          $scope.editTask = function () {
-                var completedTask = $scope.taskItem;
-                $scope.taskItem = [];
-                angular.forEach(completedTask, function (taskItem) {
-                    if (!taskItem.complete) {
-                
-                $scope.newTask = '';
-                $scope.newTaskDate = '';
-                $scope.newTaskCategory = $scope.categories;
-                $scope.taskItem.push(taskItem);
-                    }
-                });
-                
-                 localStorage.setItem('taskItems', JSON.stringify($scope.taskItem));
-            };
+       $scope.editTask = function () {
+    	  var completedTask = $scope.taskItem;
+        $scope.taskItem = [];
+        angular.forEach(completedTask, function (taskItem) {
+            if (taskItem.complete){
+         		$scope.taskItem.push({
+                description: $scope.newTask,
+                date: $scope.newTaskDate,
+                complete: true,
+                category: $scope.newTaskCategory.name
+            })
+            }
+      	$scope.newTask = '';
+       	 $scope.newTaskDate = '';
+       	 $scope.newTaskCategory = $scope.categories;
+        });
+        localStorage.setItem('taskItems', JSON.stringify($scope.taskItem));
+    };
           
           
             $scope.deleteTask = function () {
