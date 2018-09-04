@@ -1,15 +1,12 @@
 
 <style>
-
-
-/* app */
-
+/* the app */
 body {
   background: lightblue;
   font-family: 'Open Sans', sans-serif;
 }
 
-/* inputs */
+/* the inputs */
 
 .inputContainer {
   height: 50px;
@@ -17,7 +14,6 @@ body {
   position: relative;
  
 }
-
 
 input[type="date"],
 input[type="text"],
@@ -40,7 +36,6 @@ select {
   -webkit-transition: background 0.3s;
   transition: background 0.3s;
 }
-
 
 label {
   padding: 5px 20px;
@@ -85,13 +80,11 @@ button {
 }
 
 /* task styles */
-
 .taskList {
   list-style: none;
   padding: 0 20px;
 }
-
-
+  
 .taskCheckbox { margin-right: 1em; }
 
 .complete-true {
@@ -109,7 +102,7 @@ button {
  padding: 10px;
  width: 75px;
  text-align: center;
- border-radius: 20px;
+ border-radius: 1px;
  float: right;
  font-weight: normal;
  text-transform: uppercase;
@@ -157,14 +150,13 @@ button {
   content: '\f14a';
   color: #16a085;
 }
-
 /* custom select menu */
-
 .taskCategory {
   -webkit-appearance: none;
   appearance: none;
   cursor: pointer;
-  padding-left: 18px; /* specific positioning due to difficult behavior of select element*/
+  /* difficult to position thus specific positioning */
+  padding-left: 18px; 
   background: #fff;
 }
 
@@ -183,7 +175,6 @@ button {
   padding: 0 100px;
 }
 </style>
-
 
 <html>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
@@ -233,13 +224,12 @@ button {
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
 
 <script>
-//Define angular app
+// Angular app defined
 var app = angular.module('TaskManager', []); 
 
-//controllers
+// Controllers
 app.controller('taskController', function($scope) {
     $scope.today = new Date();
-  
     $scope.saved = localStorage.getItem('taskItems');
     $scope.taskItem = (localStorage.getItem('taskItems')!==null) ? 
     JSON.parse($scope.saved) : [ {description: "Please add a task", date: $scope.today, complete: false}];
@@ -253,7 +243,9 @@ app.controller('taskController', function($scope) {
         {name: 'School'},
         {name: 'Other'}
     ];
+  
     $scope.newTaskCategory = $scope.categories;
+  //Add New task 
     $scope.addNew = function () {
         if ($scope.newTaskDate == null || $scope.newTaskDate == '') {
             $scope.taskItem.push({
@@ -275,7 +267,7 @@ app.controller('taskController', function($scope) {
         $scope.newTaskCategory = $scope.categories;
         localStorage.setItem('taskItems', JSON.stringify($scope.taskItem));
     };
- 
+ //Edit selected task 
   $scope.editTask = function () {
     	var completedTask = $scope.taskItem;
        $scope.taskItem = [];
@@ -297,7 +289,7 @@ app.controller('taskController', function($scope) {
        	 	$scope.newTaskCategory = $scope.categories;
         localStorage.setItem('taskItems', JSON.stringify($scope.taskItem));
     };
-  
+  //Delete selected task 
     $scope.deleteTask = function () {
         var completedTask = $scope.taskItem;
         $scope.taskItem = [];
@@ -314,8 +306,7 @@ app.controller('taskController', function($scope) {
         localStorage.setItem('taskItems', JSON.stringify($scope.taskItem));
     }
 });
+
 </script>
-
-
 </html>
 
