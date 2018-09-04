@@ -1,7 +1,8 @@
 <style type="text/css">
 
-/* app */
+<style>
 
+/* The app */
 body {
   background: lightblue;
   font-family: 'Open Sans', sans-serif;
@@ -72,7 +73,10 @@ button {
   background: grey;
   padding-left: 15px;
 }
-
+.taskEdit {
+  background: red;
+  padding-left: 30px;
+}
 
 .taskDelete {
   background: darkblue;
@@ -104,7 +108,7 @@ button {
  padding: 10px;
  width: 75px;
  text-align: center;
- border-radius: 20px;
+ border-radius: 2px;
  float: right;
  font-weight: normal;
  text-transform: uppercase;
@@ -175,6 +179,6 @@ button {
 
 .taskCategory option {
   background: #fff;
-  padding: 0 100px;
+  padding:  0 100px;
 }
 </style>
