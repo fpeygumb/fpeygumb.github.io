@@ -2,6 +2,7 @@
 <style type="text/css">
 
 
+
 <style>
 
 
@@ -283,7 +284,7 @@ app.controller('taskController', function($scope) {
    
    $scope.editTask = function () {
     	var completedTask = $scope.taskItem;
-        $scope.taskItem = [];
+       $scope.taskItem = [];
         angular.forEach(completedTask, function (taskItem) {
             if (taskItem.complete){
          		$scope.taskItem.push({
@@ -292,8 +293,12 @@ app.controller('taskController', function($scope) {
                 complete: true,
                 category: $scope.newTaskCategory.name
             })
+            } else {
+            $scope.taskItem.push({
+                complete: false
+            })
             }
-      	$scope.newTask = '';
+      	 $scope.newTask = '';
        	 $scope.newTaskDate = '';
        	 $scope.newTaskCategory = $scope.categories;
         });
@@ -320,3 +325,5 @@ app.controller('taskController', function($scope) {
 
 
 </html>
+
+
