@@ -1,8 +1,4 @@
 
-<style type="text/css">
-
-
-
 <style>
 
 
@@ -279,10 +275,8 @@ app.controller('taskController', function($scope) {
         $scope.newTaskCategory = $scope.categories;
         localStorage.setItem('taskItems', JSON.stringify($scope.taskItem));
     };
-  
-
-   
-   $scope.editTask = function () {
+ 
+  $scope.editTask = function () {
     	var completedTask = $scope.taskItem;
        $scope.taskItem = [];
         angular.forEach(completedTask, function (taskItem) {
@@ -293,15 +287,14 @@ app.controller('taskController', function($scope) {
                 complete: true,
                 category: $scope.newTaskCategory.name
             })
-            } else {
-            $scope.taskItem.push({
-                complete: false
-            })
+            } else{
+            	$scope.taskItem.push(taskItem);
             }
-      	 $scope.newTask = '';
-       	 $scope.newTaskDate = '';
-       	 $scope.newTaskCategory = $scope.categories;
-        });
+      	 });
+         
+          $scope.newTask = '';
+       	 	$scope.newTaskDate = '';
+       	 	$scope.newTaskCategory = $scope.categories;
         localStorage.setItem('taskItems', JSON.stringify($scope.taskItem));
     };
   
@@ -325,5 +318,4 @@ app.controller('taskController', function($scope) {
 
 
 </html>
-
 
