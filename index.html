@@ -1,107 +1,40 @@
+//index.html
+<!DOCTYPE html>
 <html>
-<div ng-app="app" ng-controller="ctrl" id="app">
-    <!-- 'keyword' will serve as the model for what the user enters -->
-    <p><input type="text" ng-model="keyword" placeholder="search for..."></p>
-    <ul>
-      <!-- display each art object using ng-repeat directive-->
-      <li ng-repeat="x in pieces | search: keyword">
-        <img src="{{ x.image }}">
-        <h4><a href="{{ x.url }}" target="_blank">{{ x.title }}</a></h4>
-        <p>{{ x.artist }}</p>
-        <p>
-          <span ng-repeat="m in x.materials">
-            {{ m }}
-          </span>
-        </p>
-      </li>
-    </ul>
-  </div>
-  
-  <script>
-  var data = [
-    {
-      image: 'https://img1.etsystatic.com/053/1/7725562/il_570xN.768673249_tydk.jpg',
-      url: 'http://etsy.me/1WJRVyk',
-      title: 'Arctic Wolf watercolor painting print',
-      artist: 'SlaviART',
-      materials: ['watercolor', 'paper', 'paint', 'pencil', 'giclee print']
-    },
-    {
-      image: 'https://img1.etsystatic.com/055/2/9019569/il_570xN.766250917_76pj.jpg',
-      url: 'http://etsy.me/25h3Gl0',
-      title: 'Animal Bull Painting 72" Abstract Painting on canvas',
-      artist: 'KobyFeldmos',
-      materials: ['oil', 'canvas']
-    },
-    {
-      image: 'https://img1.etsystatic.com/068/1/8470287/il_570xN.797157695_i042.jpg',
-      url: 'http://etsy.me/1Rj9XQ3',
-      title: 'Black Cat Art Print',
-      artist: 'ColorWatercolor',
-      materials: ['archival', 'canon lucia pigment inks', 'chroma optimizer', 'true color prints', 'fine art', 'watercolor']
-    },
-    {
-      image: 'https://img1.etsystatic.com/025/0/7412974/il_570xN.648442321_hctd.jpg',
-      url: 'http://etsy.me/1U6UBzN',
-      title: 'Lieutenant Hare: Military Print, Rabbit print Wall Art Wall Decor',
-      artist: 'FabFunky',
-      materials: ['dictionary', 'page', 'paper', 'ink', 'book', 'vintage']
-    },
-    {
-      image: 'https://img1.etsystatic.com/058/0/5941978/il_570xN.736849659_io0c.jpg',
-      url: 'http://etsy.me/1OJ6FFS',
-      title: 'White Gold Brown Blue Flower Abstract Tree painting',
-      artist: 'tjenkinsarts',
-      materials: ['acrylic', 'mixed media', 'canvas']
-    },
-    {
-      image: 'https://img0.etsystatic.com/019/2/6406241/il_570xN.567597748_e5os.jpg',
-      url: 'http://etsy.me/1XrTQa1',
-      title: 'Abstract painting print, GICLEE PRINT, pink and white painting, Landscape print',
-      artist: 'LolaDonoghue',
-      materials: ['paper', 'archival inks']
-    },
-    {
-      image: 'https://img1.etsystatic.com/131/1/13027005/il_570xN.1020433741_kfwt.jpg',
-      url: 'http://etsy.me/1YS8Ywc',
-      title: 'IN FULL BLOOM Giclee',
-      artist: 'BuffaloBoutinFineArt',
-      materials: ['acrylic', 'print', 'giclee', 'palette knife', 'paint', 'canvas', 'happy', 'impasto', 'field', 'landscape']
-    }
-  ];
-  var app = angular.module('app', []);
-
-  app.controller('ctrl', function($scope, $window) {
-    $scope.pieces = $window.data;
-  });
-
-  app.filter('search', function() {
-    return function(items, keyword) {
-      // if no keyword is entered, just display all the items
-      if (!keyword) { 
-        return items; 
-      } 
-      else {
-        var newItems = [];
-        var keyword = keyword.toLowerCase();
-        // create new set of items where 'keyword' exists in object data
-        for (var i of items) {
-          if (i.title.toLowerCase().indexOf(keyword) > -1 || 
-              i.artist.toLowerCase().indexOf(keyword) > -1 || 
-              checkMaterials(i.materials, keyword)) { newItems.push(i); }
-        }
-        // loop through materials checking if 'keyword' exists
-        function checkMaterials(mat, keyword) {
-          for (var m of mat) {
-            if (m.toLowerCase().indexOf(keyword) > -1) {
-              return true;
-            }
-          }
-          return false;
-        }
-        return newItems;
-      }
-    };
-  });
-  </script>
+<head>
+<link rel="stylesheet" href="style.css">
+<script src="https://code.angularjs.org/1.2.13/angular.js"></script>
+<script src="app.js"></script>
+</head>
+<body>
+<!-- Initialize a new AngularJS app and associate it
+with a module named "instantSearch"-->
+<div ng-app="searchApp" ng-controller="searchController" style="width:500px">
+<div>
+<h2>Search Engine Example</h2>
+</div>
+<div style="margin:20px">
+<p>
+Below you have list of top english movie names. 
+You can make use of instant search engine to search 
+your favourite movie.
+</p>
+</div>
+<div class="bar">
+<!-- Create a binding between the searchString model 
+and the text field -->
+<input type="text" ng-model="searchString" 
+placeholder="Enter your search terms" />
+</div>
+<ul>
+<!-- Render a li element for every entry in the items array. Notice
+the custom search filter "searchFor". It takes the value of the
+searchString model as an argument.
+-->
+<li ng-repeat="m in movies | searchFor:searchString">
+<p>{{m.releaseYr}} : {{m.name}}</p>
+</li>
+</ul>
+</div>
+</body>
 </html>
