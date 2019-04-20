@@ -1,7 +1,8 @@
 
 <!DOCTYPE html>
 <html>
-<head>
+  
+<!--<head>
 <link rel="stylesheet" href="style.css">
 <script src="https://code.angularjs.org/1.2.13/angular.js"></script>
 <script src="app.js"></script>
@@ -9,6 +10,7 @@
 <body>
 <!-- Initialize a new AngularJS app and associate it
 with a module named "instantSearch"-->
+<!--
 <div ng-app="searchApp" ng-controller="searchController" style="width:500px">
 <div>
 <h2>Table Search Engine</h2>
@@ -23,18 +25,52 @@ for tables that relate to your query.
 <div class="bar">
 <!-- Create a binding between the searchString model 
 and the text field -->
+<!--
 <input type="text" ng-model="searchString" 
 placeholder="Enter your search terms" />
 </div>
 <ul>
 <!-- Render a li element for every entry in the items array. Notice
 the custom search filter "searchFor". It takes the value of the
-searchString model as an argument.
--->
+searchString model as an argument.-->
+ <!-- 
 <li ng-repeat="m in movies | searchFor:searchString">
 <p>{{m.releaseYr}} : {{m.name}}</p>
 </li>
 </ul>
 </div>
 </body>
+-->
+
+
+
+<div class="page-header">
+    <h1 style="text-align:center">Wiki QuickFind</h1>
+</div>
+<div ng-app="wikiApp" class="container-fluid">
+    <div ng-controller="wikiController" class="row">
+        <form novalidate class="simple-form" class="col-xs-12">
+            <span class="col-xs-1"></span>
+
+            <input type="text" ng-model="content" class="col-xs-6" style="margin:3px;" />
+
+            <input type="button" ng-click="reset()" value="Reset" class="col-xs-2 btn btn-warning btn-sm" />
+            <input type="submit" ng-click="getResults()" value="Search" class="col-xs-2 btn btn-primary btn-sm" />
+            <span class="col-xs-1"></span>
+        </form>
+        <div class="results col-xs-12">
+            <br/>
+            <span class="col-xs-1"></span>
+            <ul class="list-group col-xs-10">
+                <li class="list-group-item" ng-repeat="result in results | orderObjectBy: 'result.index'">
+                    <h3><a href="{{result.link}}" target="_blank">{{result.title}}</a></h3>
+                    <p>{{result.extract}}<p>
+                </li>
+                
+            </ul>
+            <span class="col-xs-1"></span>
+        </div>
+    </div>
+</div>
 </html>
+
