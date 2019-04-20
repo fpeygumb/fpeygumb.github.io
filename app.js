@@ -1,6 +1,7 @@
 //app.js
 // Define a new module for our app. The array holds names of dependencies if any.
-var app = angular.module("searchApp", []);
+
+/*var app = angular.module("searchApp", []);
 // Create the search filter
 app.filter('searchFor', function(){
 // All filters must return a function. The first parameter
@@ -38,3 +39,78 @@ $scope.movies = [
 {name:"Avatar",releaseYr:"2009"},
 {name:"The Avengers",releaseYr:"2012"}
 ];}
+
+*/
+var app = angular.module("wikiApp", []);
+
+app.controller("wikiController", ["$scope", "searchResults", function($scope, searchResults) {
+    $scope.reset = function() {
+        if($scope.content) $scope.content = '';
+        if($scope.results) $scope.results = '';
+    };
+
+    $scope.check = function() {
+        if ($scope.content === "" || !$scope.content) return false;
+        return true;
+    }
+    
+    $scope.getResults = function(){
+        if($scope.check()) {
+            searchResults.get($scope.content).then(function(data){
+                $scope.results = data.data.query.pages;
+                for(var page in $scope.results){
+                    $scope.results[page].link = 'https://en.wikipedia.org/wiki/' + $scope.results[page].title; 
+                }
+            });
+        }
+    };
+}]);
+
+app.factory("searchResults", function($http) {
+    var config = {
+        params: {
+            format: "json",
+            action: "query",
+            prop: "extracts",
+            exchars: "140",
+            exlimit: "10",
+            exintro: "",
+            explaintext: "",
+            rawcontinue: "",
+            generator: "search",
+            gsrlimit: "10",
+            callback: "JSON_CALLBACK"
+        }
+    };
+    var url = "https://en.wikipedia.org/w/api.php?";
+    
+    var results = {
+        get: function(data) {
+            config.params.gsrsearch = data;
+            return $http.jsonp(url,config).then(function(rq){
+                console.log(rq);
+                return rq;
+            });
+        }
+    };
+
+    return results;
+});
+
+app.filter('orderObjectBy', function() {
+  return function(items, field, reverse) {
+    var filtered = [];
+    angular.forEach(items, function(item) {
+      filtered.push(item);
+    });
+    filtered.sort(function (a, b) {
+      return (a[field] > b[field] ? 1 : -1);
+    });
+    if(reverse) filtered.reverse();
+    return filtered;
+  };
+});
+
+
+
+
