@@ -1,7 +1,7 @@
 //app.js
 // Define a new module for our app. The array holds names of dependencies if any.
 
-/*var app = angular.module("searchApp", []);
+var app = angular.module("searchApp", []);
 // Create the search filter
 app.filter('searchFor', function(){
 // All filters must return a function. The first parameter
@@ -40,7 +40,6 @@ $scope.movies = [
 {name:"The Avengers",releaseYr:"2012"}
 ];}
 
-*/
 var app = angular.module("wikiApp", []);
 
 app.controller("wikiController", ["$scope", "searchResults", function($scope, searchResults) {
