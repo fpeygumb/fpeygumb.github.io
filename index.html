@@ -1,312 +1,107 @@
-
-<style>
-/* the app */
-body {
-  background: lightblue;
-  font-family: 'Open Sans', sans-serif;
-}
-
-/* the inputs */
-
-.inputContainer {
-  height: 50px;
-  border-top: 1px;
-  position: relative;
- 
-}
-
-input[type="date"],
-input[type="text"],
-select {
-  height: 100%;
-  width: 100%;
-  padding: 0 20px;
-  position: absolute;
-  top: 0;
-  vertical-align: middle;
-  display: inline-block;
-  border: none;
-  border-radius: none;
-  font-size: 13px;
-  color: #777;
-  margin: 0;
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  -webkit-transition: background 0.3s;
-  transition: background 0.3s;
-}
-//Descriptions of each selection option
-label {
-  padding: 5px 20px;
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  color: black;
-  display: block;
-  position: absolute;
-}
-
-button {
-  height: 50px;
-  width: 100px;
-  font-size: 1em;
-  color: lightblue;
-  cursor: pointer;
-  text-transform: uppercase;
-  position: relative;
-
-}
-
-.icon {
-  position: absolute;
-  top: 10%;
-  left: 10px;
-  font-size: 20px;
-}
-
-.taskAdd {
-  background: grey;
-  padding-left: 15px;
-}
-.taskEdit {
-  background: red;
-  padding-left: 30px;
-}
-
-.taskDelete {
-  background: darkblue;
-  padding-left: 30px;
-}
-
-/* task styles */
-.taskList {
-  list-style: none;
-  padding: 0 20px;
-}
-  
-.taskCheckbox { margin-right: 1em; }
-
-.complete-true {
-  text-decoration: line-through;
-  color: black;
-}
-
-}
- [class*='category-'] {
- display: inline-block;
- font-size: 10px;
- background: #444;
- vertical-align: middle;
- color: #fff;
- padding: 10px;
- width: 75px;
- text-align: center;
- border-radius: 1px;
- float: right;
- font-weight: normal;
- text-transform: uppercase;
- margin-right: 40px;
-}
-
-.category- { background: transparent; }
-
-.category-Personal { background: hotpink; }
-
-.category-Work { background: red; }
-
-.category-School { background: yellow; }
-
-.category-Other { background: green; }
-
-
-/* custom checkboxes */
-
-.taskCheckbox {
-  -webkit-appearance: none;
-  appearance: none;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  display: inline-block;
-  cursor: pointer;
-  width: 19px;
-  height: 19px;
-  vertical-align: middle;
-}
-
-
-.taskCheckbox:before,
-.taskCheckbox:checked:before {
-  font-family: 'FontAwesome';
-  color: #444;
-  font-size: 20px;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-}
-
-.taskCheckbox:before { content: '\f096'; }
-
-.taskCheckbox:checked:before {
-  content: '\f14a';
-  color: #16a085;
-}
-/* custom select menu */
-.taskCategory {
-  -webkit-appearance: none;
-  appearance: none;
-  cursor: pointer;
-  /* difficult to position thus specific positioning */
-  padding-left: 18px; 
-  background: #fff;
-}
-
-.selectArrow {
-  position: absolute;
-  z-index: 10;
-  top: 35%;
-  right: 0;
-  margin-right: 20px;
-  color: #777;
-  pointer-events: none;
-}
-
-.taskCategory option {
-  background: #fff;
-  padding: 0 100px;
-}
-</style>
-
 <html>
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-
-<div ng-app="TaskManager">
-  <div class="container">
-    <div class="content" ng-controller="taskController">
-      <h1>Fun Task List</h1>
-      <p class="tagline">Your Easy 2DOList</p>
-      <form>
-        <div class="inputContainer">
-          <input type="text" id="description" class="taskName" placeholder="Add a new task here" ng-model="newTask">
-          <label for="description">Title</label>
-        </div>
-        <div class="inputContainer half last"> 
-        <i class="fa fa-caret-down selectArrow"></i>
-          <select id="category" class="taskCategory" ng-model="newTaskCategory" ng-options="obj.name for obj in categories">
-            <option class="disabled" value="">Choose Task Category</option>
-          </select>
-          <label for="category">Description</label>
-        </div>
-        <div class="inputContainer half last right">
-          <input type="date" id="dueDate" class="taskDate" ng-model="newTaskDate">
-          <label for="dueDate">Choose Due Date</label>
-        </div>
-        <div class="row">
-          <button class="taskAdd" ng-click="addNew()">
-          <i class="fa fa-plus icon"></i>Add task</button>
-          <button class="taskEdit" ng-click="editTask()">
-          <i class="fa fa-edit icon"></i>Edit task</button>
-          <button class="taskDelete" ng-click="deleteTask()">
-          <i class="fa fa-trash-o icon"></i>Delete Tasks</button>
-        </div>
-      </form>
-      <ul  class="taskList">
-        <li class="taskItem" ng-repeat="taskItem in taskItem track by $index" ng-model="taskItem">
-          <input type="checkbox" class="taskCheckbox" ng-model="taskItem.complete" ng-change="save()">
-          <span class="complete-{{taskItem.complete}}">{{taskItem.description}}</span> <span class="category-{{taskItem.category}}">{{taskItem.category}}</span> <strong class="taskDate complete-{{taskItem.complete}}"><i class="fa fa-calendar"></i>{{taskItem.date | date : 'mediumDate'}}</strong> </li>
-      </ul>
-      <!-- taskList --> 
-    </div>
-    <!-- content --> 
+<div ng-app="app" ng-controller="ctrl" id="app">
+    <!-- 'keyword' will serve as the model for what the user enters -->
+    <p><input type="text" ng-model="keyword" placeholder="search for..."></p>
+    <ul>
+      <!-- display each art object using ng-repeat directive-->
+      <li ng-repeat="x in pieces | search: keyword">
+        <img src="{{ x.image }}">
+        <h4><a href="{{ x.url }}" target="_blank">{{ x.title }}</a></h4>
+        <p>{{ x.artist }}</p>
+        <p>
+          <span ng-repeat="m in x.materials">
+            {{ m }}
+          </span>
+        </p>
+      </li>
+    </ul>
   </div>
-  <!-- container --> 
-</div>
-
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
-
-<script>
-// Angular app defined
-var app = angular.module('TaskManager', []); 
-
-// Controllers
-app.controller('taskController', function($scope) {
-    $scope.today = new Date();
-    $scope.saved = localStorage.getItem('taskItems');
-    $scope.taskItem = (localStorage.getItem('taskItems')!==null) ? 
-    JSON.parse($scope.saved) : [ {description: "Please add a task", date: $scope.today, complete: false}];
-    localStorage.setItem('taskItems', JSON.stringify($scope.taskItem));
-
-    $scope.newTask = null;
-    $scope.newTaskDate = null;
-    $scope.categories = [
-        {name: 'Personal'},
-        {name: 'Work'},
-        {name: 'School'},
-        {name: 'Other'}
-    ];
   
-    $scope.newTaskCategory = $scope.categories;
-  //Add New task 
-    $scope.addNew = function () {
-        if ($scope.newTaskDate == null || $scope.newTaskDate == '') {
-            $scope.taskItem.push({
-                description: $scope.newTask,
-                date: "No deadline",
-                complete: false,
-                category: $scope.newTaskCategory.name
-            }) 
-        } else {
-            $scope.taskItem.push({
-                description: $scope.newTask,
-                date: $scope.newTaskDate,
-                complete: false,
-                category: $scope.newTaskCategory.name
-            })
-        };
-        $scope.newTask = '';
-        $scope.newTaskDate = '';
-        $scope.newTaskCategory = $scope.categories;
-        localStorage.setItem('taskItems', JSON.stringify($scope.taskItem));
-    };
- //Edit selected task 
-  $scope.editTask = function () {
-    	var completedTask = $scope.taskItem;
-       $scope.taskItem = [];
-        angular.forEach(completedTask, function (taskItem) {
-            if (taskItem.complete){
-         		$scope.taskItem.push({
-                description: $scope.newTask,
-                date: $scope.newTaskDate,
-                complete: true,
-                category: $scope.newTaskCategory.name
-            })
-            } else{
-            	$scope.taskItem.push(taskItem);
-            }
-      	 });
-         
-          $scope.newTask = '';
-       	 	$scope.newTaskDate = '';
-       	 	$scope.newTaskCategory = $scope.categories;
-        localStorage.setItem('taskItems', JSON.stringify($scope.taskItem));
-    };
-  //Delete selected task 
-    $scope.deleteTask = function () {
-        var completedTask = $scope.taskItem;
-        $scope.taskItem = [];
-        angular.forEach(completedTask, function (taskItem) {
-            if (!taskItem.complete) {
-                $scope.taskItem.push(taskItem);
-            }
-           
-        });
-        localStorage.setItem('taskItems', JSON.stringify($scope.taskItem));
-    };
-
-    $scope.save = function () {
-        localStorage.setItem('taskItems', JSON.stringify($scope.taskItem));
+  <script>
+  var data = [
+    {
+      image: 'https://img1.etsystatic.com/053/1/7725562/il_570xN.768673249_tydk.jpg',
+      url: 'http://etsy.me/1WJRVyk',
+      title: 'Arctic Wolf watercolor painting print',
+      artist: 'SlaviART',
+      materials: ['watercolor', 'paper', 'paint', 'pencil', 'giclee print']
+    },
+    {
+      image: 'https://img1.etsystatic.com/055/2/9019569/il_570xN.766250917_76pj.jpg',
+      url: 'http://etsy.me/25h3Gl0',
+      title: 'Animal Bull Painting 72" Abstract Painting on canvas',
+      artist: 'KobyFeldmos',
+      materials: ['oil', 'canvas']
+    },
+    {
+      image: 'https://img1.etsystatic.com/068/1/8470287/il_570xN.797157695_i042.jpg',
+      url: 'http://etsy.me/1Rj9XQ3',
+      title: 'Black Cat Art Print',
+      artist: 'ColorWatercolor',
+      materials: ['archival', 'canon lucia pigment inks', 'chroma optimizer', 'true color prints', 'fine art', 'watercolor']
+    },
+    {
+      image: 'https://img1.etsystatic.com/025/0/7412974/il_570xN.648442321_hctd.jpg',
+      url: 'http://etsy.me/1U6UBzN',
+      title: 'Lieutenant Hare: Military Print, Rabbit print Wall Art Wall Decor',
+      artist: 'FabFunky',
+      materials: ['dictionary', 'page', 'paper', 'ink', 'book', 'vintage']
+    },
+    {
+      image: 'https://img1.etsystatic.com/058/0/5941978/il_570xN.736849659_io0c.jpg',
+      url: 'http://etsy.me/1OJ6FFS',
+      title: 'White Gold Brown Blue Flower Abstract Tree painting',
+      artist: 'tjenkinsarts',
+      materials: ['acrylic', 'mixed media', 'canvas']
+    },
+    {
+      image: 'https://img0.etsystatic.com/019/2/6406241/il_570xN.567597748_e5os.jpg',
+      url: 'http://etsy.me/1XrTQa1',
+      title: 'Abstract painting print, GICLEE PRINT, pink and white painting, Landscape print',
+      artist: 'LolaDonoghue',
+      materials: ['paper', 'archival inks']
+    },
+    {
+      image: 'https://img1.etsystatic.com/131/1/13027005/il_570xN.1020433741_kfwt.jpg',
+      url: 'http://etsy.me/1YS8Ywc',
+      title: 'IN FULL BLOOM Giclee',
+      artist: 'BuffaloBoutinFineArt',
+      materials: ['acrylic', 'print', 'giclee', 'palette knife', 'paint', 'canvas', 'happy', 'impasto', 'field', 'landscape']
     }
-});
+  ];
+  var app = angular.module('app', []);
 
-</script>
+  app.controller('ctrl', function($scope, $window) {
+    $scope.pieces = $window.data;
+  });
+
+  app.filter('search', function() {
+    return function(items, keyword) {
+      // if no keyword is entered, just display all the items
+      if (!keyword) { 
+        return items; 
+      } 
+      else {
+        var newItems = [];
+        var keyword = keyword.toLowerCase();
+        // create new set of items where 'keyword' exists in object data
+        for (var i of items) {
+          if (i.title.toLowerCase().indexOf(keyword) > -1 || 
+              i.artist.toLowerCase().indexOf(keyword) > -1 || 
+              checkMaterials(i.materials, keyword)) { newItems.push(i); }
+        }
+        // loop through materials checking if 'keyword' exists
+        function checkMaterials(mat, keyword) {
+          for (var m of mat) {
+            if (m.toLowerCase().indexOf(keyword) > -1) {
+              return true;
+            }
+          }
+          return false;
+        }
+        return newItems;
+      }
+    };
+  });
+  </script>
 </html>
-
