@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="style.css">
+<!--<link rel="stylesheet" href="style.css">-->
 <script src="https://code.angularjs.org/1.2.13/angular.js"></script>
 <script src="app.js"></script>
 </head>
@@ -57,7 +57,7 @@ searchString model as an argument.-->
             <span class="col-xs-1"></span>
             <ul class="list-group col-xs-10">
                 <li class="list-group-item" ng-repeat="result in results | orderObjectBy: 'result.index'">
-                    <h3><a href="{{result.link}}" target="_blank">{{result.pgtitle}}</a></h3>
+                    <h3><a href="{{result.link}}" target="_blank">{{result.title}}</a></h3>
                     <p>{{result.extract}}<p>
                 </li>
                 
