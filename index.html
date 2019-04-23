@@ -46,7 +46,7 @@ $(document).ready(function(){
   var expression = new RegExp(searchField, "i");
   $.getJSON('query_1.json', function(data) {
    $.each(data, function(key, value){
-    if (value.title.search(expression) != -1 || value.pgTitle.search(expression) != -1)
+    if (value.pgTitle.search(expression) != -1 || value.data.search(expression) != -1)
     {
      $('#result').append('<li class="list-group-item link-class"> '+value.pgTitle+' | <span class="text-muted">'+value.title+'</span></li>');
     }
