@@ -48,7 +48,7 @@ $(document).ready(function(){
    $.each(data, function(key, value){
     if (value.pgTitle.search(expression) != -1 || value.data.search(expression) != -1)
     {
-     $('#result').append('<li class="list-group-item link-class"> '+value.pgTitle+' | <span class="text-muted">'+value.title+'</span></li>');
+     $('#result').append('<li class="list-group-item link-class"> '+value.pgTitle+' | <span class="text-muted">'+value.data+'</span></li>');
     }
    });   
   });
