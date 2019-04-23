@@ -46,9 +46,9 @@ $(document).ready(function(){
   var expression = new RegExp(searchField, "i");
   $.getJSON('corpus.json', function(data) {
    $.each(data, function(key, value){
-    if (value.pgTitle.search(expression) != -1 || value.link.search(expression) != -1)
+    if (value.title.search(expression) != -1 || value.pgTitle.search(expression) != -1)
     {
-     $('#result').append('<li class="list-group-item link-class"> '+value.pgTitle+' | <span class="text-muted">'+value.Title+'</span></li>');
+     $('#result').append('<li class="list-group-item link-class"> '+value.pgTitle+' | <span class="text-muted">'+value.title+'</span></li>');
     }
    });   
   });
