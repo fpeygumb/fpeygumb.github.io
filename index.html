@@ -54,8 +54,6 @@ $(document).ready(function(){
   });
  });
  
- console.log(search(obj.list,'#results'));
- 
  $('#result').on('click', 'li', function() {
   var click_text = $(this).text().split('|');
   $('#search').val($.trim(click_text[0]));
