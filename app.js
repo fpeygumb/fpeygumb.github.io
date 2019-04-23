@@ -29,9 +29,9 @@ function searchController($scope){
 // tips on using AJAX.
 $scope.movies = [
 {name:"world interest rates table",releaseYr:"1"},
-{name:"Inception",releaseYr:"2010"},
-{name:"Titanic",releaseYr:"1997"},
-{name:"Thor:Ragnarok",releaseYr:"2017"},
+{name:"2008 beijing olympics",releaseYr:"2"},
+{name:"Titanic",releaseYr:"3"},
+{name:"Thor:Ragnarok",releaseYr:"4"},
 {name:"Forest Gump",releaseYr:"1994"},
 {name:"Star Wars",releaseYr:"1977"},
 {name:"Justice League",releaseYr:"2017"},
