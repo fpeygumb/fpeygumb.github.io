@@ -3,7 +3,7 @@
 <body>
 <select id="queries">
 
-    <option value="">Select Below</option>
+    <option value="q_0">Select Below</option>
     <option value="query_1">Eurozone</option>
      <option value="query_2">Interest rates</option>
       <option value="query_3">Eurozone</option>
@@ -19,11 +19,13 @@
 function showPage() {
   var sel = document.getElementById('queries');
   var option = sel.options[sel.selectedIndex].value;
-  //return option
+   var str = "Table 1";
+   var result= str.link("https://en.wikipedia.org/wiki/Eurozone");
+   document.getElementById("demo").innerHTML = result;
   //this can open a new window for the result
   //window.open("https://en.wikipedia.org/wiki/Eurozone");
  	//console.log(sel);
-  document.write(option);
+  //document.write(option);
   
 function tableResults(option){
    var str = "Table 1";
