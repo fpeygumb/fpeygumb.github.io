@@ -4,32 +4,74 @@
     <head>
         <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
         <link rel="stylesheet" type="text/css" href="test.css"></link>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
     </head>
     <body>
         <div class="table">
             <script>
-          $.getJSON('corpus.json', function(data) {
-    html = ''
-    var headersPrinted = false;        
-    var keys = [];
-    for(var i in data) {
-        if(headersPrinted == false) {                
-            html += "<div class=\"header row\">";
-            for(var name in data[i]) {
-                html += "<div class=\"cell\">" + name + "</div>";
-                keys.push(name);
-            }
-            html += "</div>"
-            headersPrinted = true;
-        }
-        html += "<div class=\"row\"></div>";
-        for(var key in keys){
-            html += "<div class=\"cell\">" + data[i][keys[key]] + "</div>";
-        }
-    }        
-    html += "</div>";
-    $(".table").append(html);
-});
+         var json = [{
+    "Group-of-Signals name" : "DPI_0",
+    "Group-of-Signals description" : "",
+    "Signal name" : "EUVPulseCount",
+    "Signal data type" : "SDT_STRING",
+    "Signal unit of measurement" : "M",
+    "Signal description" : "",
+    "Signal ID" : "-1",
+    "Signal index" : "0",
+    "id" : 0
+}, {
+    "Group-of-Signals name" : "DPI_0",
+    "Group-of-Signals description" : "",
+    "Signal name" : "EUVState",
+    "Signal data type" : "SDT_STRING",
+    "Signal unit of measurement" : "",
+    "Signal description" : "",
+    "Signal ID" : "-1",
+    "Signal index" : "1",
+    "id" : 1
+}, {
+    "Group-of-Signals name" : "DPI_0",
+    "Group-of-Signals description" : "",
+    "Signal name" : "Loop_Name",
+    "Signal data type" : "SDT_STRING",
+    "Signal unit of measurement" : "",
+    "Signal description" : "",
+    "Signal ID" : "-1",
+    "Signal index" : "2",
+    "id" : 2
+}, {
+    "Group-of-Signals name" : "DPI_0",
+    "Group-of-Signals description" : "",
+    "Signal name" : "Project_Info",
+    "Signal data type" : "SDT_STRING",
+    "Signal unit of measurement" : "",
+    "Signal description" : "",
+    "Signal ID" : "-1",
+    "Signal index" : "3",
+    "id" : 3
+}
+];
+
+var html = '';
+
+   $.each(json, function(key, value){
+     if(key === 0) {
+         html += "<div class=\"row\">";
+         $.each(Object.keys(value), function(k, v) {
+           html += "<div class=\"cell\">" + v + "</div>";
+         });
+         html += "</div>";
+       }
+     
+     html += "<div class=\"row\">";
+         $.each(Object.keys(value), function(k, v) {
+           html += "<div class=\"cell\">" + value[v] + "</div>";
+         });
+         html += "</div>";
+
+   });
+console.log(html)
             </script>
         </div>
     </body>
