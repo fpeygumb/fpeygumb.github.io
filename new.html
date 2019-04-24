@@ -1,28 +1,23 @@
-<div class="page-header">
-    <h1 style="text-align:center">Wiki QuickFind</h1>
-</div>
-<div ng-app="wikiApp" class="container-fluid">
-    <div ng-controller="wikiController" class="row">
-        <form novalidate class="simple-form" class="col-xs-12">
-            <span class="col-xs-1"></span>
+<body ng-app="wikiApp">
+  <div ng-controller ="wikiCtrl">
+    <h1>{{headerInfo.project}}</h1>
+    <h3>{{headerInfo.site}} </h3>
+    </div>
+    <div class= "row" >
+        <div class= "col-md-11">
+            <input class ="form-control" ng-model="searchTerm" placeholder="Search WikiTables here">
+        </div>
+        <div class="col-md-1">
+            <a class= "btn btn-primary" ng-click="searchWiki()">Search</a>
 
-            <input type="text" ng-model="content" class="col-xs-6" style="margin:3px;" />
-
-            <input type="button" ng-click="reset()" value="Reset" class="col-xs-2 btn btn-warning btn-sm" />
-            <input type="submit" ng-click="getResults()" value="Search" class="col-xs-2 btn btn-primary btn-sm" />
-            <span class="col-xs-1"></span>
-        </form>
-        <div class="results col-xs-12">
-            <br/>
-            <span class="col-xs-1"></span>
-            <ul class="list-group col-xs-10">
-                <li class="list-group-item" ng-repeat="result in results | orderObjectBy: 'result.index'">
-                    <h3><a href="{{result.link}}" target="_blank">{{result.title}}</a></h3>
-                    <p>{{result.extract}}<p>
-                </li>
-                
-            </ul>
-            <span class="col-xs-1"></span>
+        </div>
+        <div>
+            <span ng-repeat="info in searchTermArr[0]">
+                <a ng-href= "{{searchTermArr[2][$index]}}" target="blank">
+                    <h1> {{$index + 1}}{{info}}</h1>
+                </a>
+                    <h2> {{searchTermArr[1][$index]}}</h2>
+            </span>
         </div>
     </div>
-</div>
+</body>
