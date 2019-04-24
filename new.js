@@ -1,69 +1,29 @@
-var app = angular.module("wikiApp", []);
 
-app.controller("wikiController", ["$scope", "searchResults", function($scope, searchResults) {
-    $scope.reset = function() {
-        if($scope.content) $scope.content = '';
-        if($scope.results) $scope.results = '';
+var app = angular.module('wikiApp', []);
+
+app.controller('wikiCtrl', function($scope, $http){
+    var vm =$scope;
+    vm.searchTermArr=[];
+    vm.headerInfo={
+        project: "EDP: EB01",
+        site: "Table Search from unstructured data"
     };
 
-    $scope.check = function() {
-        if ($scope.content === "" || !$scope.content) return false;
-        return true;
-    }
-    
-    $scope.getResults = function(){
-        if($scope.check()) {
-            searchResults.get($scope.content).then(function(data){
-                $scope.results = data.data.query.pages;
-                for(var page in $scope.results){
-                    $scope.results[page].link = 'https://en.wikipedia.org/wiki/' + $scope.results[page].title; 
-                }
-            });
-        }
-    };
-}]);
+vm.randomLink= "https://en.wikipedia.org/wiki/Special:Random";
 
-app.factory("searchResults", function($http) {
-    var config = {
-        params: {
-            format: "json",
-            action: "query",
-            prop: "extracts",
-            exchars: "140",
-            exlimit: "10",
-            exintro: "",
-            explaintext: "",
-            rawcontinue: "",
-            generator: "search",
-            gsrlimit: "10",
-            callback: "JSON_CALLBACK"
-        }
-    };
-    var url = "https://en.wikipedia.org/w/api.php";
-    
-    var results = {
-        get: function(data) {
-            config.params.gsrsearch = data;
-            return $http.jsonp(url,config).then(function(rq){
-                console.log(rq);
-                return rq;
-            });
-        }
-    };
+vm.searchWiki = function(){$http({
+    url:'https://en.wikipedia.org/w/api.php?action=opensearch&search='+vm.searchTerm+'&format=json&callback=JSON_CALLBACK',
+    method:'jsonp'
 
-    return results;
-});
+}).success(function(response){
+    //Title
+    vm.searchTermArr.push(response[1]);
+    //Description
+    vm.searchTermArr.push(response[2]);
+    //Article Link
+    vm.searchTermArr.push(response[3]);
 
-app.filter('orderObjectBy', function() {
-  return function(items, field, reverse) {
-    var filtered = [];
-    angular.forEach(items, function(item) {
-      filtered.push(item);
-    });
-    filtered.sort(function (a, b) {
-      return (a[field] > b[field] ? 1 : -1);
-    });
-    if(reverse) filtered.reverse();
-    return filtered;
-  };
+});}
+
+
 });
