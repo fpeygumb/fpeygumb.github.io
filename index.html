@@ -44,11 +44,11 @@ $(document).ready(function(){
   $('#state').val('');
   var searchField = $('#search').val();
   var expression = new RegExp(searchField, "i");
-  $.getJSON('corpus.json', function(data) {
-   $.each(data, function(key, value){
-    if (value.name.search(expression) != -1 || value.location.search(expression) != -1)
+  $.getJSON('corpus.json', function(corpus) {
+   $.each(corpus, function(key, value){
+    if (value.pgTitle.search(expression) != -1 || value.title.search(expression) != -1)
     {
-     $('#result').append('<li class="list-group-item link-class"> '+value.pgtitle+' | <span class="text-muted">'+value.title+'</span></li>');
+     $('#result').append('<li class="list-group-item link-class"> '+value.pgTitle+' | <span class="text-muted">'+value.title+'</span></li>');
     }
    });   
   });
