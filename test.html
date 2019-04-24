@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<body>
+<select id="queries">
+
+    <option value="0">Select Below</option>
+    <option value="q1">world interest rates table</option>
+<option value="q2">2008 beijing olympics</option>
+<option value="q3">fast cars</option>
+<option value="q4">clothing sizes</option>
+<option value="q5">phases of the moon</option>
+<option value="q6">usa population by state</option>
+<option value="q7">prime ministers of england</option>
+<option value="q8">ipod models</option>
+<option value="q9">bittorrent clients</option>
+<option value="q10">olympus digital slrs</option>
+<option value="q11">composition of the sun</option>
+<option value="q12">running shoes</option>
+<option value="q13">fuel consumption</option>
+<option value="q14">stock quote tables</option>
+<option value="q15">top grossing movies</option>
+<option value="q16">nutrition values</option>
+<option value="q17">state capitals and largest cities in us</option>
+<option value="q18">professional wrestlers</option>
+<option value="q19">company income statements</option>
+<option value="q20">dog breeds</option>
+<option value="q21">ibanez guitars</option>
+<option value="q22">used cellphones</option>
+<option value="q23">world religions</option>
+<option value="q24">stocks</option>
+<option value="q25">academy awards</option>
+<option value="q26">2008 olympic gold medal winners</option>
+<option value="q27">currencies of different countries</option>
+<option value="q28">science discoveries</option>
+<option value="q29">pga leaderboard</option>
+<option value="q30">pain medications</option>
+<option value="q31">football clubs city</option>
+<option value="q32">healthy food cost</option>
+<option value="q33">capitals attractions</option>
+<option value="q34">diseases mortality</option>
+<option value="q35">cigarette brands market share</option>
+<option value="q36">apples market share</option>
+<option value="q37">healthy food nutritional value</option>
+<option value="q38">hormones effects</option>
+<option value="q39">household chemicals strength</option>
+<option value="q40">lakes altitude</option>
+<option value="q41">laptops cpu</option>
+<option value="q42">asian countries currency</option>
+<option value="q43">diseases risks</option>
+<option value="q44">external drives capacity</option>
+<option value="q45">baseball teams captain</option>
+<option value="q46">maryland counties population</option>
+<option value="q47">countries capital</option>
+<option value="q48">diseases incidence</option>
+<option value="q49">eu countries year joined</option>
+<option value="q50">irish counties area</option>
+<option value="q51">cereals nutritional value</option>
+<option value="q52">erp systems price</option>
+<option value="q53">cats life span</option>
+<option value="q54">broadway musicals director</option>
+<option value="q55">infections treatment</option>
+<option value="q56">food type</option>
+<option value="q57">board games number of players</option>
+<option value="q58">google products reviews</option>
+<option value="q59">constellations closest constellation</option>
+<option value="q60">games age</option>
+
+</select>
+<p id="demo"></p>
+<input class="SubmitButton" type="button" value="Search" onclick="showPage()"  style="font-size:20px; " />
+
+
+<script>
+function showPage() {
+  var sel = document.getElementById('queries');
+  var option = sel.options[sel.selectedIndex].value;
+  var x = option;
+  //document.write(x);
+  	switch(x){
+    	case "q1":
+         var str = "Table 1";
+         var result= str.link("https://en.wikipedia.org/wiki/Eurozone");
+         document.getElementById("demo").innerHTML = result;
+         break;
+        case "q2":
+     	 var str = "Table 1";
+         var result= str.link("https://en.wikipedia.org/wiki/Silver_upholders");
+         document.getElementById("demo").innerHTML = result;
+         break;
+       
+        default:
+          // code block
+  		}
+  
+
+}
+</script>
+
+</body>
+</html>
