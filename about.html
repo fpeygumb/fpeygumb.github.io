@@ -1,41 +1,32 @@
 
 <!DOCTYPE html>
 <html>
-<head>
-<link rel="stylesheet" href="style.css">
-<script src="https://code.angularjs.org/1.2.13/angular.js"></script>
-<script src="app.js"></script>
-</head>
-<body>
-<!-- Initialize a new AngularJS app and associate it
-with a module named "instantSearch"-->
-<div ng-app="searchApp" ng-controller="searchController" style="width:500px">
-<div>
-<h2>Table Search Engine</h2>
-</div>
-<div style="margin:20px">
-<p>
-Below you have list of Queries. 
-You can make use of instant search engine to search 
-for tables that relate to your query. 
-</p>
-</div>
-<div class="bar">
-<!-- Create a binding between the searchString model 
-and the text field -->
-<input type="text" ng-model="searchString" 
-placeholder="Enter a query" />
-</div>    
-<ul>
-<!-- Render a li element for every entry in the items array. Notice
-the custom search filter "searchFor". It takes the value of the
-searchString model as an argument.-->
-<li ng-repeat="m in movies | searchFor:searchString">
-<p>{{m.name}}</p>
-</li>
-</ul>
-</div>
-
-
+    <head>
+        <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="test.css"></link>
+    </head>
+    <body>
+        <div class="table">
+            <script>
+                $.getJSON('query_1.json', function (data){
+                html = ''
+                    $.each(data, function(key, value){
+                        html += "<div class=\"row\"></div>";
+                        html += "<div class=\"cell\">" + value["Group-of-Signals name"] + "</div>";
+                        html += "<div class=\"cell\">" + value["Group-of-Signals description"]  + "</div>";
+                        html += "<div class=\"cell\">" + value["Signal name"]   + "</div>";
+                        html += "<div class=\"cell\">" + value["Signal data type"]  + "</div>";
+                        html += "<div class=\"cell\">" + value["Signal unit of measurement"]    + "</div>";
+                        html += "<div class=\"cell\">" + value["Signal description"]    + "</div>";
+                        html += "<div class=\"cell\">" + value["Signal ID"] + "</div>";
+                        html += "<div class=\"cell\">" + value["Signal index"]  + "</div>";
+                    });
+                    html += "</div>";
+                    $(".table").append(html);
+                });
+            </script>
+        </div>
+    </body>
+</html>
 
 
