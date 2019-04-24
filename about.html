@@ -8,22 +8,28 @@
     <body>
         <div class="table">
             <script>
-                $.getJSON('corpus.json', function (data){
-                html = ''
-                    $.each(data, function(key, value){
-                        html += "<div class=\"row\"></div>";
-                        html += "<div class=\"cell\">" + value["Group-of-Signals name"] + "</div>";
-                        html += "<div class=\"cell\">" + value["Group-of-Signals description"]  + "</div>";
-                        html += "<div class=\"cell\">" + value["Signal name"]   + "</div>";
-                        html += "<div class=\"cell\">" + value["Signal data type"]  + "</div>";
-                        html += "<div class=\"cell\">" + value["Signal unit of measurement"]    + "</div>";
-                        html += "<div class=\"cell\">" + value["Signal description"]    + "</div>";
-                        html += "<div class=\"cell\">" + value["Signal ID"] + "</div>";
-                        html += "<div class=\"cell\">" + value["Signal index"]  + "</div>";
-                    });
-                    html += "</div>";
-                    $(".table").append(html);
-                });
+          $.getJSON('./data.json', function(data) {
+    html = ''
+    var headersPrinted = false;        
+    var keys = [];
+    for(var i in data) {
+        if(headersPrinted == false) {                
+            html += "<div class=\"header row\">";
+            for(var name in data[i]) {
+                html += "<div class=\"cell\">" + name + "</div>";
+                keys.push(name);
+            }
+            html += "</div>"
+            headersPrinted = true;
+        }
+        html += "<div class=\"row\"></div>";
+        for(var key in keys){
+            html += "<div class=\"cell\">" + data[i][keys[key]] + "</div>";
+        }
+    }        
+    html += "</div>";
+    $(".table").append(html);
+});
             </script>
         </div>
     </body>
