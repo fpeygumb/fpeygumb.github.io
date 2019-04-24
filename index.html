@@ -1,63 +1,100 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html>
- <head>
-  <title>Search Table</title>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <style>
-  #result {
-   position: absolute;
-   width: 100%;
-   max-width:870px;
-   cursor: pointer;
-   overflow-y: auto;
-   max-height: 400px;
-   box-sizing: border-box;
-   z-index: 1001;
-  }
-  .link-class:hover{
-   background-color:#f1f1f1;
-  }
-  </style>
- </head>
- <body>
-  <br /><br />
-  <div class="container" style="width:900px;">
-   <h2 align="center">Table Search</h2>
-   <h3 align="center"> Enter Query Below</h3>   
-   <br /><br />
-   <div align="center">
-    <input type="text" name="search" id="search" placeholder="Search Here" class="form-control" />
-   </div>
-   <ul class="list-group" id="result"></ul>
-   <br />
-  </div>
- </body>
-</html>
+<div class="page-header">
+    <h1 style="text-align:center">Wiki QuickFind</h1>
+</div>
+<div ng-app="wikiApp" class="container-fluid">
+    <div ng-controller="wikiController" class="row">
+        <form novalidate class="simple-form" class="col-xs-12">
+            <span class="col-xs-1"></span>
+
+            <input type="text" ng-model="content" class="col-xs-6" style="margin:3px;" />
+
+            <input type="button" ng-click="reset()" value="Reset" class="col-xs-2 btn btn-warning btn-sm" />
+            <input type="submit" ng-click="getResults()" value="Search" class="col-xs-2 btn btn-primary btn-sm" />
+            <span class="col-xs-1"></span>
+        </form>
+        <div class="results col-xs-12">
+            <br/>
+            <span class="col-xs-1"></span>
+            <ul class="list-group col-xs-10">
+                <li class="list-group-item" ng-repeat="result in results | orderObjectBy: 'result.index'">
+                    <h3><a href="{{result.link}}" target="_blank">{{result.title}}</a></h3>
+                    <p>{{result.extract}}<p>
+                </li>
+                
+            </ul>
+            <span class="col-xs-1"></span>
+        </div>
+    </div>
+</div>
+
+</html> 
 
 <script>
-$(document).ready(function(){
- $.ajaxSetup({ cache: false });
- $('#search').keyup(function(){
-  $('#result').html('');
-  $('#state').val('');
-  var searchField = $('#search').val();
-  var expression = new RegExp(searchField, "i");
-  $.getJSON('query_1.json', function(query_1) {
-   $.each(query_1, function(key, value){
-    if (value.pgTitle.search(expression) != -1 || value.title.search(expression) != -1)
-    {
-     $('#result').append('<li class="list-group-item link-class"> '+value.pgTitle+' | <span class="text-muted">'+value.title+'</span></li>');
+var app = angular.module("wikiApp", []);
+app.controller("wikiController", ["$scope", "searchResults", function($scope, searchResults) {
+    $scope.reset = function() {
+        if($scope.content) $scope.content = '';
+        if($scope.results) $scope.results = '';
+    };
+    $scope.check = function() {
+        if ($scope.content === "" || !$scope.content) return false;
+        return true;
     }
-   });   
-  });
- });
- 
- $('#result').on('click', 'li', function() {
-  var click_text = $(this).text().split('|');
-  $('#search').val($.trim(click_text[0]));
-  $("#result").html('');
- });
+    
+    $scope.getResults = function(){
+        if($scope.check()) {
+            searchResults.get($scope.content).then(function(data){
+                $scope.results = data.data.query.pages;
+                for(var page in $scope.results){
+                    $scope.results[page].link = 'https://en.wikipedia.org/wiki/' + $scope.results[page].title; 
+                }
+            });
+        }
+    };
+}]);
+app.factory("searchResults", function($http) {
+    var config = {
+        params: {
+            format: "json",
+            action: "query",
+            prop: "extracts",
+            exchars: "140",
+            exlimit: "10",
+            exintro: "",
+            explaintext: "",
+            rawcontinue: "",
+            generator: "search",
+            gsrlimit: "10",
+            callback: "JSON_CALLBACK"
+        }
+    };
+    var url = "https://en.wikipedia.org/w/api.php?";
+    
+    var results = {
+        get: function(data) {
+            config.params.gsrsearch = data;
+            return $http.jsonp(url,config).then(function(rq){
+                console.log(rq);
+                return rq;
+            });
+        }
+    };
+    return results;
+});
+app.filter('orderObjectBy', function() {
+  return function(items, field, reverse) {
+    var filtered = [];
+    angular.forEach(items, function(item) {
+      filtered.push(item);
+    });
+    filtered.sort(function (a, b) {
+      return (a[field] > b[field] ? 1 : -1);
+    });
+    if(reverse) filtered.reverse();
+    return filtered;
+  };
 });
 </script>
+
