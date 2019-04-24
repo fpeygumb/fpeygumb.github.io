@@ -37,27 +37,14 @@
 </html>
 
 <script>
-$(document).ready(function(){
- $.ajaxSetup({ cache: false });
- $('#search').keyup(function(){
-  $('#result').html('');
-  $('#state').val('');
-  var searchField = $('#search').val();
-  var expression = new RegExp(searchField, "i");
-  $.getJSON('query_1.json', function(query_1) {
-   $.each(query_1, function(key, value){
-    if (value.pgTitle.search(expression) != -1 || value.title.search(expression) != -1)
-    {
-     $('#result').append('<li class="list-group-item link-class"> '+value.pgTitle+' | <span class="text-muted">'+value.title+'</span></li>');
-    }
-   });   
-  });
- });
- 
- $('#result').on('click', 'li', function() {
-  var click_text = $(this).text().split('|');
-  $('#search').val($.trim(click_text[0]));
-  $("#result").html('');
- });
-});
+  (function() {
+    var cx = '002350449809435990316:7r5nb4mz2f4';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
 </script>
+<gcse:search></gcse:search>
